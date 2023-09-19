@@ -18,7 +18,7 @@ function LoginForm() {
       headers:{'content-type':'application/json'},
       body:JSON.stringify(user)
     }
-    fetch("http://localhost:4000/api/login/validate",requestOptions)
+    fetch("https://smart-attendance-fr.onrender.com/api/login/validate",requestOptions)
     .then((response) => response.json())
       .then((data)=>{
         console.log(data)
