@@ -3,6 +3,8 @@ import {  useNavigate } from 'react-router-dom';
 function LoginForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage,setErrorMessage]=useState('');
+  const [isValid,setIsValid]=useState(true)
   const navigate=useNavigate()
 
   const handleLogin = () => {
@@ -20,11 +22,17 @@ function LoginForm() {
     .then((response) => response.json())
       .then((data)=>{
         console.log(data)
-        if(data.role==="admin"){
-          navigate("/admin")
+        if(data.success){
+          if(data.role==="admin"){
+            navigate("/admin")
+          }
+          else if(data.role==="student"){
+            navigate("/student")
+          }
         }
         else{
-          navigate("/student")
+          setErrorMessage(data.msg)
+          setIsValid(false)
         }
       }).catch((err)=>{
           console.log(err)
@@ -39,7 +47,7 @@ function LoginForm() {
         placeholder="Username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        className="border rounded-md p-2 mb-2"
+        className="border rounded-md p-2 mb-2 w-80"
       />
       <input
         type="password"
@@ -48,6 +56,7 @@ function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
         className="border rounded-md p-2 mb-4"
       />
+      {!isValid && <p className='text-red-600'>{errorMessage}</p>}
       <button onClick={handleLogin} className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700">
         Login
       </button>

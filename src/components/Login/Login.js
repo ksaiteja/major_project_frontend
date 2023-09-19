@@ -4,12 +4,11 @@ import Header from '../Header/header';
 
 function Login(){
     return(
-        <div className="flex flex-col">
+        <div className="flex flex-col h-screen">
             <Header/>
-            <div className='flex items-center justify-center'>
+            <div className='flex flex-col flex-grow items-center justify-center'>
                 <LoginForm/>
-            </div>
-            
+            </div> 
         </div>
     )
 }
