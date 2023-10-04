@@ -7,7 +7,8 @@ function LoginForm() {
   const [isValid,setIsValid]=useState(true)
   const navigate=useNavigate()
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
+    e.preventDefault()
     
     const user={
       username : username,
@@ -18,7 +19,8 @@ function LoginForm() {
       headers:{'content-type':'application/json'},
       body:JSON.stringify(user)
     }
-    fetch("https://smart-attendance-fr.onrender.com/api/login/validate",requestOptions)
+    //https://smart-attendance-fr.onrender.com/api/login/validate
+    fetch("http://localhost:4000/api/login/validate",requestOptions)
     .then((response) => response.json())
       .then((data)=>{
         console.log(data)
@@ -28,6 +30,9 @@ function LoginForm() {
           }
           else if(data.role==="student"){
             navigate("/student")
+          }
+          else if(data.role==="analyst"){
+            navigate("/analyst")
           }
         }
         else{
@@ -40,7 +45,7 @@ function LoginForm() {
   };
 
   return (
-    <div className="login-form flex flex-col space-y-5 p-10 bg-gray-200 mb-20 rounded-lg">
+    <form className="login-form flex flex-col space-y-5 p-10 bg-gray-200 mb-20 rounded-lg" onSubmit={handleLogin}>
       <h2 className="text-2xl mb-4">Login</h2>
       <input
         type="text"
@@ -57,10 +62,10 @@ function LoginForm() {
         className="border rounded-md p-2 mb-4"
       />
       {!isValid && <p className='text-red-600'>{errorMessage}</p>}
-      <button onClick={handleLogin} className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700">
+      <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-700">
         Login
       </button>
-    </div>
+    </form>
   );
 }
 
