@@ -191,7 +191,21 @@ const AdminPage = () => {
                   .split("\r")
                   .slice(0, -1)
                   .map((name, index) => (
-                    <li key={index}>{name}</li>
+                    <div
+                      key={index}
+                      className={`flex items-center space-x-2 ${
+                        name === "Unknown" ? "text-red-500" : "text-green-500"
+                      }`}
+                    >
+                      <span
+                        className={`fa ${
+                          name === "Unknown"
+                            ? "fa-times-circle"
+                            : "fa-check-circle"
+                        }`}
+                      ></span>
+                      <span>{name}</span>
+                    </div>
                   ))}
               </ul>
             </div>

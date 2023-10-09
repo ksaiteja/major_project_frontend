@@ -16,7 +16,11 @@ function Header() {
       </div>
       <div
         className={`flex flex-row space-x-4 ${
-          location.pathname === "/admin" ? "" : "hidden"
+          location.pathname === "/admin" ||
+          location.pathname === "/analyst" ||
+          location.pathname === "/student"
+            ? ""
+            : "hidden"
         }`}
       >
         <Link to="/">Logout</Link>
